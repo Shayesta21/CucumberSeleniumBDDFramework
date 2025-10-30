@@ -25,7 +25,7 @@ WebElement password;
 @FindBy(xpath="//button[@class='button-1 login-button']")
 WebElement loginButton;
 
-@FindBy(xpath="a[href=\"/logout\"] ")
+@FindBy(linkText="Logout")
 WebElement logoutButton;
 
 public void enterEmail(String emailadd) {

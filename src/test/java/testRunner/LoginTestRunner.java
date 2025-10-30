@@ -11,11 +11,13 @@ import io.cucumber.junit.CucumberOptions;
 		glue     =  "stepDefinition",
 		dryRun   =  false , //will check if all features are implemented in step definitions or not
 		monochrome = true, // to make sure the output is in readable format
-		plugin     = {"pretty","html:target/cucumber-reports/reports1.html"}			
+		plugin     = {"pretty","html:target/cucumber-reports/reports1.html"} //html format			
 		
 		)
 
 
+//plugin     ={"pretty","junit:target/cucumber-reports/reports_xml.xml}//in xml format
+//plugin    = {"pretty","json:target/cucumber-reports/report_json.json"} //json format
 public class LoginTestRunner {
 
 	// this class  will be empty

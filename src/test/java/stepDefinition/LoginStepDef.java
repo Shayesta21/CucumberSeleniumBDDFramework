@@ -39,18 +39,14 @@ public class LoginStepDef {
 	public void click_on_login_button() {
 		loginpg.clickOnLoginButton();
 	}
-
-	@Then("page title1 should be {string}")
-	public void page_title1_should_be(String expectedTitle1) {
-		String actualTitle1=driver.getTitle();
-		
-	if(actualTitle1.equals(expectedTitle1)) {
-		Assert.assertTrue(true);//pass
-	}else {
-		Assert.assertTrue(false);//fail
+	@Then("page title should be {string}")
+	public void page_title_should_be(String expectedTitle) {
+	    String actualTitle = driver.getTitle();
+	    if(!actualTitle.equals(expectedTitle)) {
+	        throw new AssertionError("Page title does not match! Expected: " + expectedTitle + ", but got: " + actualTitle);
+	    }
 	}
-	    
-	}
+	
 
 	@When("user clicks on log out link")
 	public void user_clicks_on_log_out_link() throws InterruptedException {
@@ -60,14 +56,18 @@ public class LoginStepDef {
 
 	
 	@Then("page title2 should be {string}")
-	public void page_title2_should_be(String expectedTitle2) {
+	public void page_title2_should_be(String expectedTitle2) throws InterruptedException {
+		Thread.sleep(7000);
 		String actualTitle2=driver.getTitle();
+		if(!actualTitle2.equals(expectedTitle2)) {
+	        throw new AssertionError("Page title does not match! Expected: " + expectedTitle2 + ", but got: " + actualTitle2);
 	}
+		}
 	
 	@Then("close browser")
-	public void close_browser() throws InterruptedException {
-		Thread.sleep(5000);
-	   driver.close();
+	public void close_browser() {
+	
+       
 	   driver.quit();
 	}
 }
