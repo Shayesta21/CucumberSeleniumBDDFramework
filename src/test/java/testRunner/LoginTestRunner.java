@@ -7,11 +7,11 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = ".//Feature/LoginFeature.feature",
+		features = ".//Feature/AddNewCustomer.feature",
 		glue     =  "stepDefinition",
-		dryRun   =  false , //will check if all features are implemented in step definitions or not
+		dryRun   =  false, //will check if all features are implemented in step definitions or not
 		monochrome = true, // to make sure the output is in readable format
-		plugin     = {"pretty","html:target/cucumber-reports/reports1.html"} //html format			
+		plugin     = {"pretty","html:target/cucumber-reports/reports2.html"} //html format			
 		
 		)
 

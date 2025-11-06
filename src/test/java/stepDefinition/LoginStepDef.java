@@ -1,11 +1,14 @@
 package stepDefinition;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.cucumber.java.en.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import junit.framework.Assert;
+import pageObjects.AddNewCustomerPage;
 import pageObjects.LoginPage;
 
 
@@ -14,6 +17,8 @@ public class LoginStepDef {
 	public WebDriver driver;
 	
     public LoginPage loginpg;
+    
+    public AddNewCustomerPage addcustomerpg;
 	
 	
 	@Given("User Launch Chrome browser")
@@ -21,6 +26,7 @@ public class LoginStepDef {
 	    WebDriverManager.chromedriver().setup();
 	    driver= new ChromeDriver();
 	    loginpg =new LoginPage(driver);
+	    addcustomerpg= new AddNewCustomerPage(driver);
 	}
 
 	@When("User opens URL {string}")
@@ -70,4 +76,116 @@ public class LoginStepDef {
        
 	   driver.quit();
 	}
+	
+	
+	
+/////////////////////////////Add new Customer/////////////////////////////
+	@Then("user can view dashboard")
+	public void user_can_view_dashboard() {
+	   String actualtitle=addcustomerpg.getPageTitle();
+	   String expectedtitle="Dashboard / nopCommerce administration";	
+		if(actualtitle.equals(expectedtitle)) {
+		  Assert.assertTrue(true);	
+		}
+		else {
+			Assert.assertTrue(false);
+		}
+			
+	}
+
+	@When("user clicks customers menu")
+	public void user_clicks_customers_menu() {
+		addcustomerpg.clickCustomerMenu();
+		}
+
+	@When("clicks customers option")
+	public void clicks_customers_option() {
+		addcustomerpg.clickCustomerOption();
+	   	}
+
+	@When("Add new customer button is clicked")
+	public void add_new_customer_button_is_clicked() {
+		addcustomerpg.clickAddCustomerBtn();
+	}
+
+	@Then("user can view add new customer page")
+	public void user_can_view_add_new_customer_page() {
+	   String actualtitle=addcustomerpg.getPageTitle();
+	   String expectedtitle="Add a new customer / nopCommerce administration"; 
+	   if(actualtitle.equals(expectedtitle)) {
+		   Assert.assertTrue(true);
+	   }else {
+		   Assert.assertTrue(false);
+	   }
+	}
+
+	@When("user fills all information on form")
+	public void user_fills_all_information_on_form() {
+		addcustomerpg.enteremail("JohnSmith5@youremail.com");
+		addcustomerpg.enterPassword("admin");
+		addcustomerpg.enterFirstName("John");
+		addcustomerpg.enterLastName("Smith");
+		addcustomerpg.entergender();
+		addcustomerpg.entercompany("Abc Corp");
+		addcustomerpg.enterTaxExpemt();
+
+		JavascriptExecutor js =(JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,document.body.scrollHeight)","");
+		addcustomerpg.enterAdmincomment("This is a new cx");
+		
+		js.executeScript("window.scrollBy(0,-document.body.scrollHeight)", "");
+		
+	}
+
+	@When("save button is clicked")
+	public void save_button_is_clicked() {
+		addcustomerpg.clickSavebtn();
+	  
+	}
+
+	@Then("user can view success message  as {string}")
+	public void user_can_view_success_message_as(String expectedconfirmationmessage) {
+		String bodyTagText=driver.findElement(By.tagName("Body")).getText();
+		if(bodyTagText.contains(expectedconfirmationmessage)) {
+			Assert.assertTrue(true);
+		}else {
+			Assert.assertTrue(false);
+		}
+	   
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
